@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns:tns="http://das.ufsc.br/Parallel_Process/" targetNamespace="http://das.ufsc.br" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <partnerLinkType name="Parallel_ProcessPLT" xmlns="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    <role name="Parallel_ProcessRole" portType="tns:Parallel_Process"/>
+  </partnerLinkType>
+  <import location="Parallel_Process.wsdl" namespace="http://das.ufsc.br/Parallel_Process/"/>
+</definitions>

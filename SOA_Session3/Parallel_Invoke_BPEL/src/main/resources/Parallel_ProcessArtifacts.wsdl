@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:tns="http://das.ufsc.brArtifacts" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://das.ufsc.br/SumService/" xmlns:wsdl1="http://das.ufsc.br/ProductService/" name="Parallel_ProcessArtifacts" targetNamespace="http://das.ufsc.brArtifacts" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <plnk:partnerLinkType name="Sum_ServicePLT">
+    <plnk:role name="Sum_ServiceRole" portType="wsdl:SumService"/>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="Product_ServicePLT">
+    <plnk:role name="Product_ServiceRole" portType="wsdl1:ProductService"/>
+  </plnk:partnerLinkType>
+  <import location="SumService.wsdl" namespace="http://das.ufsc.br/SumService/"/>
+  <import location="ProductService.wsdl" namespace="http://das.ufsc.br/ProductService/"/>
+</definitions>

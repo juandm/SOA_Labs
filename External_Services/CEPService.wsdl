@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://interfaces.cep.services.ufsc.br/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CEPServiceSoapService" targetNamespace="http://interfaces.cep.services.ufsc.br/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" targetNamespace="http://output.ufsc.services.ufsc.br" version="1.0">
+
+  <xs:complexType name="cepInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bairro" type="xs:string"/>
+      <xs:element minOccurs="0" name="bairroAbreviado" type="xs:string"/>
+      <xs:element minOccurs="0" name="cep" type="xs:int"/>
+      <xs:element minOccurs="0" name="codigoLocalidade" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidade" type="xs:string"/>
+      <xs:element minOccurs="0" name="localidadeAbreviado" type="xs:string"/>
+      <xs:element minOccurs="0" name="logradouro" type="xs:string"/>
+      <xs:element minOccurs="0" name="logradouroAbreviado" type="xs:string"/>
+      <xs:element minOccurs="0" name="obs" type="xs:string"/>
+      <xs:element minOccurs="0" name="uf" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://interfaces.cep.services.ufsc.br/" xmlns:ns1="http://output.ufsc.services.ufsc.br" elementFormDefault="unqualified" targetNamespace="http://interfaces.cep.services.ufsc.br/" version="1.0">
+
+  <xs:import namespace="http://output.ufsc.services.ufsc.br"/>
+
+  <xs:element name="getCepInfo" type="tns:getCepInfo"/>
+
+  <xs:element name="getCepInfoResponse" type="tns:getCepInfoResponse"/>
+
+  <xs:complexType name="getCepInfo">
+    <xs:sequence>
+      <xs:element name="cep" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getCepInfoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cepInfo" type="ns1:cepInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getCepInfoResponse">
+    <wsdl:part element="tns:getCepInfoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCepInfo">
+    <wsdl:part element="tns:getCepInfo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CEPService">
+    <wsdl:operation name="getCepInfo">
+      <wsdl:input message="tns:getCepInfo" name="getCepInfo">
+    </wsdl:input>
+      <wsdl:output message="tns:getCepInfoResponse" name="getCepInfoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CEPServiceSoapServiceSoapBinding" type="tns:CEPService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getCepInfo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getCepInfo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCepInfoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CEPServiceSoapService">
+    <wsdl:port binding="tns:CEPServiceSoapServiceSoapBinding" name="CEPServicePort">
+      <soap:address location="https://ws.homologacao.ufsc.br/services/CEPService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

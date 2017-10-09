@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:das.ufsc.br="http://das.ufsc.br">
+  <process name="das.ufsc.br:OrderProcess">
+    <process-events generate="all"/>
+    <provide partnerLink="OrderProcess">
+      <service name="das.ufsc.br:OrderProcess" port="ignored"/>
+    </provide>
+    
+    <invoke partnerLink="CEP_Service">
+      <service name="das.ufsc.br:CEPService" port="ignored"/>
+    </invoke>
+  </process>
+</deploy>

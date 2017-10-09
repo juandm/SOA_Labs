@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sy:switchyard xmlns="urn:switchyard-config:switchyard:2.0"
+               xmlns:cEP_Process="http://das.ufsc.br"
+               xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+               xmlns:soap="urn:switchyard-component-soap:config:2.0"
+               xmlns:sy="urn:switchyard-config:switchyard:2.0"
+               name="Invoke_CEP_Service_BPEL"
+               targetNamespace="http://das.ufsc.br">
+   <sca:composite name="Invoke_CEP_Service_BPEL" targetNamespace="http://das.ufsc.br">
+      <sca:service name="CEP_Process" promote="CEP_Process/CEP_Process">
+         <sca:interface.wsdl interface="CEP_Process.wsdl#wsdl.porttype(CEP_Process)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>CEP_Process.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:service>
+      <sca:reference multiplicity="0..1" name="CEPService" promote="CEP_Process/CEPService">
+         <sca:interface.wsdl interface="CEPService.wsdl#wsdl.porttype(CEPService)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>CEPService.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:reference>
+      <sca:component name="CEP_Process">
+         <sca:implementation.bpel process="cEP_Process:CEP_Process"/>
+         <sca:service name="CEP_Process">
+            <sca:interface.wsdl interface="CEP_Process.wsdl#wsdl.porttype(CEP_Process)"/>
+         </sca:service>
+         <sca:reference name="CEPService">
+            <sca:interface.wsdl interface="CEPService.wsdl#wsdl.porttype(CEPService)"/>
+         </sca:reference>
+      </sca:component>
+   </sca:composite>
+   <sy:domain>
+      <sy:properties>
+         <sy:property name="org.switchyard.handlers.messageTrace.enabled" value="true"/>
+      </sy:properties>
+   </sy:domain>
+</sy:switchyard>

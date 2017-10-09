@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns:tns="http://das.ufsc.br/OrderProcess/" targetNamespace="http://das.ufsc.br" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <partnerLinkType name="OrderProcessPLT" xmlns="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    <role name="OrderProcessRole" portType="tns:OrderProcess"/>
+  </partnerLinkType>
+  <import location="OrderProcess.wsdl" namespace="http://das.ufsc.br/OrderProcess/"/>
+</definitions>

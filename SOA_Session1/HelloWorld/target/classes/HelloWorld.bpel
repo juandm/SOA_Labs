@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpel:process exitOnStandardFault="yes" name="HelloWorld"
+    targetNamespace="http://helloworld.switchyard.com"
+    xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:ns="http://helloworld.switchyard.com" xmlns:ns0="http://www.example.org/HelloWorld/">
+    <bpel:import importType="http://schemas.xmlsoap.org/wsdl/"
+        location="HelloWorld.wsdl" namespace="http://www.example.org/HelloWorld/"/>
+    <bpel:import importType="http://schemas.xmlsoap.org/wsdl/"
+        location="HelloWorldPartners.wsdl" namespace="http://helloworld.switchyard.com"/>
+    <bpel:partnerLinks>
+        <bpel:partnerLink myRole="HelloWorldRole" name="HelloWorld" partnerLinkType="ns:HelloWorldPLT"/>
+    </bpel:partnerLinks>
+    <bpel:variables>
+        <bpel:variable name="HelloWorldRequest" messageType="ns0:SayHelloRequest"/>
+        <bpel:variable name="HelloWorldResponse" messageType="ns0:SayHelloResponse"/>
+    </bpel:variables>
+    <bpel:sequence name="MainSequence">
+        
+        <bpel:receive name="Receive the request" partnerLink="HelloWorld" operation="SayHello" portType="ns0:HelloWorld" createInstance="yes" variable="HelloWorldRequest"></bpel:receive>
+        <bpel:assign validate="no" name="Assign the greeting to Output Variable">
+            <bpel:copy>
+                <bpel:from><bpel:literal><tns:SayHelloResponse xmlns:tns="http://www.example.org/HelloWorld/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <out>out</out>
+</tns:SayHelloResponse>
+</bpel:literal></bpel:from>
+                <bpel:to variable="HelloWorldResponse" part="parameters"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <![CDATA[concat('Hello ', $HelloWorldRequest.parameters/in)]]>
+                </bpel:from>
+                <bpel:to part="parameters" variable="HelloWorldResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[out]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:reply name="Reply" partnerLink="HelloWorld" operation="SayHello" portType="ns0:HelloWorld" variable="HelloWorldResponse"></bpel:reply>
+    </bpel:sequence>
+</bpel:process>

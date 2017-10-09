@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Built-By: SOA_PC
+Build-Jdk: 1.8.0_144
+Created-By: Maven Integration for Eclipse
+Dependencies: deployment.juddi-uddi-client-1.0.0.jar
+

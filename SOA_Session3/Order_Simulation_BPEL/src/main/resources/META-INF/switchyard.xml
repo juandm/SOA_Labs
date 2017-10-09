@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sy:switchyard xmlns:orderProcess="http://das.ufsc.br" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:2.0" xmlns:sy="urn:switchyard-config:switchyard:2.0" name="Order_Simulation_BPEL" targetNamespace="http://das.ufsc.br">
+  <sca:composite name="Order_Simulation_BPEL" targetNamespace="http://das.ufsc.br">
+    <sca:component name="OrderProcess">
+      <sca:implementation.bpel process="orderProcess:OrderProcess"/>
+      <sca:service name="OrderProcess">
+        <sca:interface.wsdl interface="OrderProcess.wsdl#wsdl.porttype(OrderProcess)"/>
+      </sca:service>
+      <sca:reference name="CEPService">
+        <sca:interface.wsdl interface="CEPService.wsdl#wsdl.porttype(CEPService)"/>
+      </sca:reference>
+    </sca:component>
+    <sca:service name="OrderProcess" promote="OrderProcess/OrderProcess">
+      <sca:interface.wsdl interface="OrderProcess.wsdl#wsdl.porttype(OrderProcess)"/>
+      <soap:binding.soap name="soap1">
+        <soap:contextMapper soapHeadersType="VALUE"/>
+        <soap:wsdl>OrderProcess.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:reference name="CEPService" multiplicity="0..1" promote="OrderProcess/CEPService">
+      <sca:interface.wsdl interface="CEPService.wsdl#wsdl.porttype(CEPService)"/>
+      <soap:binding.soap name="soap1">
+        <soap:contextMapper soapHeadersType="VALUE"/>
+        <soap:wsdl>CEPService.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:reference>
+  </sca:composite>
+</sy:switchyard>

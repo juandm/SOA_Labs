@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://das.ufsc.br/SumService/"
+	name="SumService" xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://das.ufsc.br/SumService/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://das.ufsc.br/SumService/"
+			version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:element name="sum">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="a" type="xs:float" />
+						<xs:element name="b" type="xs:float" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="sumResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="result" type="xs:float" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="sumResponse">
+		<wsdl:part name="parameters" element="tns:sumResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="sum">
+		<wsdl:part name="parameters" element="tns:sum">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="SumService">
+		<wsdl:operation name="sum">
+			<wsdl:input name="sum" message="tns:sum">
+			</wsdl:input>
+			<wsdl:output name="sumResponse" message="tns:sumResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SumServiceSoapBinding" type="tns:SumService">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="sum">
+			<soap:operation style="document"
+				soapAction="http://das.ufsc.br/SumService/sum" />
+			<wsdl:input name="sum">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="sumResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SumService">
+		<wsdl:port name="SumServiceImplPort" binding="tns:SumServiceSoapBinding">
+			<soap:address location="http://localhost:8080/sumService/SumService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

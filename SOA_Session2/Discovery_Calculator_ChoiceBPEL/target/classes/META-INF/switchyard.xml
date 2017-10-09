@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sy:switchyard xmlns="urn:switchyard-config:switchyard:2.0"
+               xmlns:calculatorProcess="http://discovery.das.ufsc.br"
+               xmlns:camel="urn:switchyard-component-camel:config:2.0"
+               xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+               xmlns:soap="urn:switchyard-component-soap:config:2.0"
+               xmlns:sy="urn:switchyard-config:switchyard:2.0"
+               name="Discovery_Calculator_ChoiceBPEL"
+               targetNamespace="http://discovery.das.ufsc.br">
+   <sca:composite name="Discovery_Calculator_ChoiceBPEL"
+                  targetNamespace="http://discovery.das.ufsc.br">
+      <sca:service name="CalculatorProcess" promote="CalculatorProcess/CalculatorProcess">
+         <sca:interface.wsdl interface="CalculatorProcess.wsdl#wsdl.porttype(CalculatorProcess)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>CalculatorProcess.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:service>
+      <sca:reference multiplicity="0..1" name="DiscoveredSumService"
+                     promote="SumServiceDiscovery/DiscoveredSumService">
+         <sca:interface.wsdl interface="SumService.wsdl#wsdl.porttype(SumService)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>SumService.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:reference>
+      <sca:reference multiplicity="0..1" name="DiscoveredProductService"
+                     promote="ProdServiceDiscovery/DiscoveredProductService">
+         <sca:interface.wsdl interface="ProductService.wsdl#wsdl.porttype(ProductService)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>ProductService.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:reference>
+      <sca:component name="CalculatorProcess">
+         <sca:implementation.bpel process="calculatorProcess:CalculatorProcess"/>
+         <sca:service name="CalculatorProcess">
+            <sca:interface.wsdl interface="CalculatorProcess.wsdl#wsdl.porttype(CalculatorProcess)"/>
+         </sca:service>
+         <sca:reference name="SumService">
+            <sca:interface.wsdl interface="SumService.wsdl#wsdl.porttype(SumService)"/>
+         </sca:reference>
+         <sca:reference name="ProductService">
+            <sca:interface.wsdl interface="ProductService.wsdl#wsdl.porttype(ProductService)"/>
+         </sca:reference>
+      </sca:component>
+      <sca:component name="SumServiceDiscovery">
+         <camel:implementation.camel>
+            <camel:java class="br.ufsc.das.discovery.SumServiceDiscovery"/>
+         </camel:implementation.camel>
+         <sca:service name="SumService">
+            <sca:interface.wsdl interface="SumService.wsdl#wsdl.porttype(SumService)"/>
+         </sca:service>
+         <sca:reference name="DiscoveredSumService">
+            <sca:interface.wsdl interface="SumService.wsdl#wsdl.porttype(SumService)"/>
+         </sca:reference>
+      </sca:component>
+      <sca:component name="ProdServiceDiscovery">
+         <camel:implementation.camel>
+            <camel:java class="br.ufsc.das.discovery.ProdServiceDiscovery"/>
+         </camel:implementation.camel>
+         <sca:service name="ProductService">
+            <sca:interface.wsdl interface="ProductService.wsdl#wsdl.porttype(ProductService)"/>
+         </sca:service>
+         <sca:reference name="DiscoveredProductService">
+            <sca:interface.wsdl interface="ProductService.wsdl#wsdl.porttype(ProductService)"/>
+         </sca:reference>
+      </sca:component>
+   </sca:composite>
+</sy:switchyard>

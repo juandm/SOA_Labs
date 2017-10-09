@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sy:switchyard xmlns="urn:switchyard-config:switchyard:2.0"
+               xmlns:camel="urn:switchyard-component-camel:config:2.0"
+               xmlns:discovering_CEP_Process="http://das.ufsc.discovery.br"
+               xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+               xmlns:soap="urn:switchyard-component-soap:config:2.0"
+               xmlns:sy="urn:switchyard-config:switchyard:2.0"
+               name="Discovering_CEP_Service_BPEL"
+               targetNamespace="http://das.ufsc.discovery.br">
+   <sca:composite name="Discovering_CEP_Service_BPEL"
+                  targetNamespace="http://das.ufsc.discovery.br">
+      <sca:service name="Discovering_CEP_Process"
+                   promote="Discovering_CEP_Process/Discovering_CEP_Process">
+         <sca:interface.wsdl interface="Discovering_CEP_Process.wsdl#wsdl.porttype(Discovering_CEP_Process)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>Discovering_CEP_Process.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:service>
+      <sca:reference multiplicity="0..1" name="DiscoveredCEPService"
+                     promote="CepService/DiscoveredCEPService">
+         <sca:interface.wsdl interface="CEPService.wsdl#wsdl.porttype(CEPService)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>CEPService.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:reference>
+      <sca:component name="Discovering_CEP_Process">
+         <sca:implementation.bpel process="discovering_CEP_Process:Discovering_CEP_Process"/>
+         <sca:service name="Discovering_CEP_Process">
+            <sca:interface.wsdl interface="Discovering_CEP_Process.wsdl#wsdl.porttype(Discovering_CEP_Process)"/>
+         </sca:service>
+         <sca:reference name="CEPService">
+            <sca:interface.wsdl interface="CEPService.wsdl#wsdl.porttype(CEPService)"/>
+         </sca:reference>
+      </sca:component>
+      <sca:component name="CepService">
+         <camel:implementation.camel>
+            <camel:java class="br.discovery.ufsc.das.CEPServiceDiscovery"/>
+         </camel:implementation.camel>
+         <sca:service name="CEPService">
+            <sca:interface.wsdl interface="CEPService.wsdl#wsdl.porttype(CEPService)"/>
+         </sca:service>
+         <sca:reference name="DiscoveredCEPService">
+            <sca:interface.wsdl interface="CEPService.wsdl#wsdl.porttype(CEPService)"/>
+         </sca:reference>
+      </sca:component>
+   </sca:composite>
+</sy:switchyard>

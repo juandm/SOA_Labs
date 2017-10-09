@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:das.ufsc.br="http://das.ufsc.br">
+  <process name="das.ufsc.br:Parallel_Process">
+    <process-events generate="all"/>
+    
+    <provide partnerLink="Parallel_Process">
+      <service name="das.ufsc.br:Parallel_Process" port="ignored"/>
+    </provide>
+    
+    <invoke partnerLink="Sum_Service">
+      <service name="das.ufsc.br:SumService" port="ignored"/>
+    </invoke>
+    <invoke partnerLink="Prod_Service">
+    	<service name="das.ufsc.br:ProductService" port="ignored"/>
+    </invoke>
+    
+  </process>
+</deploy>

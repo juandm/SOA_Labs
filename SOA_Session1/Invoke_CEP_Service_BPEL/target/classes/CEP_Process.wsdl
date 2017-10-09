@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tnsProc="http://das.ufsc.br/CEP_Process/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CEP_Process" targetNamespace="http://das.ufsc.br/CEP_Process/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://das.ufsc.br/CEP_Process/">
+      <xsd:element name="findCEP">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="cep" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="findCEPResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+
+
+          	<xsd:element name="CEPInfoResponse"
+          		type="tnsProc:CEP_Info">
+          	</xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    
+      <xsd:complexType name="CEP_Info">
+      	<xsd:sequence>
+      		<xsd:element name="cep" type="xsd:string"></xsd:element>
+      		<xsd:element name="streetName" type="xsd:string"></xsd:element>
+      		<xsd:element name="neighborhood" type="xsd:string"></xsd:element>
+      	</xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="findCEPRequest">
+    <wsdl:part element="tnsProc:findCEP" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="findCEPResponse">
+    <wsdl:part element="tnsProc:findCEPResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="CEP_Process">
+    <wsdl:operation name="findCEP">
+      <wsdl:input message="tnsProc:findCEPRequest"/>
+      <wsdl:output message="tnsProc:findCEPResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CEP_ProcessSOAP" type="tnsProc:CEP_Process">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="findCEP">
+      <soap:operation soapAction="http://das.ufsc.br/CEP_Process/findCEP"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CEP_Process">
+    <wsdl:port binding="tnsProc:CEP_ProcessSOAP" name="CEP_ProcessSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

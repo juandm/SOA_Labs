@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:tns="http://das.ufsc.discovery.brArtifacts" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://interfaces.cep.services.ufsc.br/" name="Discovering_CEP_ProcessArtifacts" targetNamespace="http://das.ufsc.discovery.brArtifacts" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <plnk:partnerLinkType name="CEP_ServicePLT">
+    <plnk:role name="CEP_ServiceRole" portType="wsdl:CEPService"/>
+  </plnk:partnerLinkType>
+  <import location="CEPService.wsdl" namespace="http://interfaces.cep.services.ufsc.br/"/>
+</definitions>

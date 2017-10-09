@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:das.ufsc.discovery.br="http://das.ufsc.discovery.br">
+  <process name="das.ufsc.discovery.br:Discovering_CEP_Process">
+    <process-events generate="all"/>
+    
+    <provide partnerLink="Discovering_CEP_Process">
+		<service name="das.ufsc.discovery.br:Discovering_CEP_Process" port="ignored"/>    
+    </provide>
+    
+    <invoke partnerLink="CEP_Service">
+    	<service name="das.ufsc.discovery.br:CEPService" port="ignored"/>
+    </invoke>
+  </process>
+</deploy>

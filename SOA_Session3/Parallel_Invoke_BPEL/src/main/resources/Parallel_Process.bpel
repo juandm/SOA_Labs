@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpel:process exitOnStandardFault="yes" name="Parallel_Process"
+    targetNamespace="http://das.ufsc.br"
+    xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:ns="http://das.ufsc.br" xmlns:ns0="http://das.ufsc.br/Parallel_Process/" xmlns:ns1="http://das.ufsc.brArtifacts" xmlns:ns2="http://das.ufsc.br/ProductService/" xmlns:ns3="http://das.ufsc.br/SumService/">
+    <bpel:import namespace="http://das.ufsc.br/ProductService/" location="ProductService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <bpel:import namespace="http://das.ufsc.brArtifacts" location="Parallel_ProcessArtifacts.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <bpel:import namespace="http://das.ufsc.br/SumService/" location="SumService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <bpel:import importType="http://schemas.xmlsoap.org/wsdl/"
+        location="Parallel_Process.wsdl" namespace="http://das.ufsc.br/Parallel_Process/"/>
+    <bpel:import importType="http://schemas.xmlsoap.org/wsdl/"
+        location="Parallel_ProcessPartners.wsdl" namespace="http://das.ufsc.br"/>
+    <bpel:partnerLinks>
+        <bpel:partnerLink myRole="Parallel_ProcessRole"
+            name="Parallel_Process" partnerLinkType="ns:Parallel_ProcessPLT"/>
+        <bpel:partnerLink name="Sum_Service" partnerLinkType="ns1:Sum_ServicePLT" partnerRole="Sum_ServiceRole"></bpel:partnerLink>
+        <bpel:partnerLink name="Prod_Service" partnerLinkType="ns1:Product_ServicePLT" partnerRole="Product_ServiceRole"></bpel:partnerLink>
+    </bpel:partnerLinks>
+    <bpel:variables>
+        <bpel:variable name="processRequest" messageType="ns0:SumOfProductsRequest"></bpel:variable>
+        <bpel:variable name="processResponse" messageType="ns0:SumOfProductsResponse"></bpel:variable>
+        <bpel:variable name="SumSvcRequest" messageType="ns3:sum"></bpel:variable>
+        <bpel:variable name="SumSvcResponse" messageType="ns3:sumResponse"></bpel:variable>
+        <bpel:variable name="ProdSvcRequest1" messageType="ns2:product"></bpel:variable>
+        <bpel:variable name="ProdSvcResponse1" messageType="ns2:productResponse"></bpel:variable>
+        
+        
+        
+        <bpel:variable name="ProdSvcRequest2" messageType="ns2:product"></bpel:variable>
+        <bpel:variable name="ProdSvcResponse2" messageType="ns2:productResponse"></bpel:variable>
+        
+    </bpel:variables>
+    <bpel:sequence name="MainSequence">
+        <bpel:receive name="Receive request" partnerLink="Parallel_Process" operation="SumOfProducts" portType="ns0:Parallel_Process" createInstance="yes" variable="processRequest"></bpel:receive>
+        
+        
+        <bpel:flow name="Flow">
+            <bpel:sequence name="Sequence"><bpel:sources>
+                    <bpel:source linkName="link1"></bpel:source>
+                </bpel:sources>
+            
+                <bpel:assign validate="no" name="Create Prod Svc Request 1">
+                    
+                    
+                    
+                    
+                    <bpel:copy>
+                        <bpel:from><bpel:literal><tns:product xmlns:tns="http://das.ufsc.br/ProductService/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <a>0.0</a>
+  <b>0.0</b>
+</tns:product>
+</bpel:literal></bpel:from>
+                        <bpel:to variable="ProdSvcRequest1" part="parameters"></bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="parameters" variable="processRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[num1]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="parameters" variable="ProdSvcRequest1">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[a]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="parameters" variable="processRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[num2]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="parameters" variable="ProdSvcRequest1">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[b]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                </bpel:assign>
+                <bpel:invoke name="Invoke Prod Svc 1" partnerLink="Prod_Service" operation="product" portType="ns2:ProductService" inputVariable="ProdSvcRequest1" outputVariable="ProdSvcResponse1"></bpel:invoke>
+            </bpel:sequence>
+            <bpel:sequence name="Sequence1">
+                <bpel:sources>
+                    <bpel:source linkName="link2"></bpel:source>
+                </bpel:sources>
+                <bpel:assign validate="no" name="Create Prod Svc Request 2">
+                    
+                    
+                    
+                    
+                    
+                    
+                    <bpel:copy>
+                        <bpel:from><bpel:literal><tns:product xmlns:tns="http://das.ufsc.br/ProductService/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <a>0.0</a>
+  <b>0.0</b>
+</tns:product>
+</bpel:literal></bpel:from>
+                        <bpel:to variable="ProdSvcRequest2" part="parameters"></bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="parameters" variable="processRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[num1]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="parameters" variable="ProdSvcRequest2">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[a]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="parameters" variable="processRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[num2]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="parameters" variable="ProdSvcRequest2">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[b]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                </bpel:assign>
+                <bpel:invoke name="Invoke Prod Svc 2" partnerLink="Prod_Service" operation="product" portType="ns2:ProductService" inputVariable="ProdSvcRequest2" outputVariable="ProdSvcResponse2"></bpel:invoke>
+            </bpel:sequence>
+            <bpel:sequence name="Sequence2">
+                <bpel:targets>
+                    <bpel:target linkName="link1"></bpel:target>
+                    <bpel:target linkName="link2"></bpel:target>
+                </bpel:targets>
+                
+                <bpel:assign validate="no" name="Create SumSvc Request">
+                    
+                    
+                    
+                    <bpel:copy>
+                        <bpel:from><bpel:literal><tns:sum xmlns:tns="http://das.ufsc.br/SumService/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <a>0.0</a>
+  <b>0.0</b>
+</tns:sum>
+</bpel:literal></bpel:from>
+                        <bpel:to variable="SumSvcRequest" part="parameters"></bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="parameters" variable="ProdSvcResponse1">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[result]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="parameters" variable="SumSvcRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[a]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="parameters" variable="ProdSvcResponse2">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[result]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="parameters" variable="SumSvcRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[b]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                </bpel:assign>
+                <bpel:invoke name="Invoke Sum Svc" partnerLink="Sum_Service" operation="sum" portType="ns3:SumService" inputVariable="SumSvcRequest" outputVariable="SumSvcResponse"></bpel:invoke>
+                
+            </bpel:sequence>
+            <bpel:links>
+                <bpel:link name="link1"></bpel:link>
+                <bpel:link name="link2"></bpel:link>
+            </bpel:links>
+        </bpel:flow>
+        <bpel:assign validate="no" name="Set Response">
+            <bpel:copy>
+                <bpel:from><bpel:literal><tns:SumOfProductsResponse xmlns:tns="http://das.ufsc.br/Parallel_Process/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <response>0.0</response>
+</tns:SumOfProductsResponse>
+</bpel:literal></bpel:from>
+                <bpel:to variable="processResponse" part="parameters"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="parameters" variable="SumSvcResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[result]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="parameters" variable="processResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[response]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:reply name="Reply" partnerLink="Parallel_Process" operation="SumOfProducts" portType="ns0:Parallel_Process" variable="processResponse"></bpel:reply>
+    
+    </bpel:sequence>
+</bpel:process>

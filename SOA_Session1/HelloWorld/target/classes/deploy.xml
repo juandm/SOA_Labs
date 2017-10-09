@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:helloworld.switchyard.com="http://helloworld.switchyard.com">
+  <process name="helloworld.switchyard.com:HelloWorld">
+    <process-events generate="all"/>
+    <provide partnerLink="HelloWorld">
+      <service name="helloworld.switchyard.com:HelloWorld" port="ignored"/>
+    </provide>
+  </process>
+</deploy>

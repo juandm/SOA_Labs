@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns:tns="http://www.example.org/HelloWorld/" targetNamespace="http://helloworld.switchyard.com" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <partnerLinkType name="HelloWorldPLT" xmlns="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    <role name="HelloWorldRole" portType="tns:HelloWorld"/>
+  </partnerLinkType>
+  <import location="HelloWorld.wsdl" namespace="http://www.example.org/HelloWorld/"/>
+</definitions>

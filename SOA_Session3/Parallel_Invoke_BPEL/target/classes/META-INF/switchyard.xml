@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sy:switchyard xmlns="urn:switchyard-config:switchyard:2.0"
+               xmlns:parallel_Process="http://das.ufsc.br"
+               xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+               xmlns:soap="urn:switchyard-component-soap:config:2.0"
+               xmlns:sy="urn:switchyard-config:switchyard:2.0"
+               name="Parallel_Invoke_BPEL"
+               targetNamespace="http://das.ufsc.br">
+   <sca:composite name="Parallel_Invoke_BPEL" targetNamespace="http://das.ufsc.br">
+      <sca:service name="Parallel_Process" promote="Parallel_Process/Parallel_Process">
+         <sca:interface.wsdl interface="Parallel_Process.wsdl#wsdl.porttype(Parallel_Process)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>Parallel_Process.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:service>
+      <sca:reference multiplicity="0..1" name="ProductService"
+                     promote="Parallel_Process/ProductService">
+         <sca:interface.wsdl interface="ProductService.wsdl#wsdl.porttype(ProductService)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>ProductService.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:reference>
+      <sca:reference multiplicity="0..1" name="SumService" promote="Parallel_Process/SumService">
+         <sca:interface.wsdl interface="SumService.wsdl#wsdl.porttype(SumService)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>SumService.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:reference>
+      <sca:component name="Parallel_Process">
+         <sca:implementation.bpel process="parallel_Process:Parallel_Process"/>
+         <sca:service name="Parallel_Process">
+            <sca:interface.wsdl interface="Parallel_Process.wsdl#wsdl.porttype(Parallel_Process)"/>
+         </sca:service>
+         <sca:reference name="ProductService">
+            <sca:interface.wsdl interface="ProductService.wsdl#wsdl.porttype(ProductService)"/>
+         </sca:reference>
+         <sca:reference name="SumService">
+            <sca:interface.wsdl interface="SumService.wsdl#wsdl.porttype(SumService)"/>
+         </sca:reference>
+      </sca:component>
+   </sca:composite>
+</sy:switchyard>

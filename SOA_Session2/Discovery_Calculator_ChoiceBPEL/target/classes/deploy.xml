@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:discovery.das.ufsc.br="http://discovery.das.ufsc.br">
+  <process name="discovery.das.ufsc.br:CalculatorProcess">
+    <process-events generate="all"/>
+    <provide partnerLink="CalculatorProcess">
+      	<service name="discovery.das.ufsc.br:CalculatorProcess" port="ignored"/>
+    </provide>
+    <invoke partnerLink="Sum_Service">
+      	<service name="discovery.das.ufsc.br:SumService" port="ignored"/>
+    </invoke>
+    <invoke partnerLink="Product_Service">
+    	<service name="discovery.das.ufsc.br:ProductService" port="ignored"/>
+    </invoke>
+  </process>
+</deploy>

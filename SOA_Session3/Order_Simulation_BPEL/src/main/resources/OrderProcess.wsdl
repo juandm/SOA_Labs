@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://das.ufsc.br/OrderProcess/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="OrderProcess" targetNamespace="http://das.ufsc.br/OrderProcess/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://das.ufsc.br/OrderProcess/">
+      <xsd:element name="acceptOrder">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="order" type="tns:Order" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="acceptOrderResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="orderConfirmation"
+            	type="tns:OrderConfirmation" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    
+      <xsd:complexType name="Order">
+      	<xsd:sequence>
+      		<xsd:element name="clientName" type="xsd:string"></xsd:element>
+      		<xsd:element name="cep" type="xsd:string"></xsd:element>
+      		<xsd:element name="quantity" type="xsd:int"></xsd:element>
+      	</xsd:sequence>
+      </xsd:complexType>
+    
+      <xsd:complexType name="OrderConfirmation">
+      	<xsd:sequence>
+      		<xsd:element name="OrderId" type="xsd:int"></xsd:element>
+      		<xsd:element name="clientName" type="xsd:string"></xsd:element>
+      		<xsd:element name="clientAddress" type="xsd:string"></xsd:element>
+      		<xsd:element name="clientCity" type="xsd:string"></xsd:element>
+      		<xsd:element name="clientState" type="xsd:string"></xsd:element>
+      		<xsd:element name="quantity" type="xsd:int"></xsd:element>
+      		<xsd:element name="total" type="xsd:float"></xsd:element>
+      	</xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="acceptOrderFault">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="CEP_fault"
+      				type="xsd:string">
+      			</xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="acceptOrderRequest">
+    <wsdl:part element="tns:acceptOrder" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="acceptOrderResponse">
+    <wsdl:part element="tns:acceptOrderResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="acceptOrderFault">
+  	<wsdl:part name="parameters" element="tns:acceptOrderFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="OrderProcess">
+    <wsdl:operation name="acceptOrder">
+      <wsdl:input message="tns:acceptOrderRequest"/>
+      <wsdl:output message="tns:acceptOrderResponse"/>
+            <wsdl:fault name="fault" message="tns:acceptOrderFault"></wsdl:fault>
+        </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrderProcessSOAP" type="tns:OrderProcess">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="acceptOrder">
+      <soap:operation soapAction="http://das.ufsc.br/OrderProcess/acceptOrder"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrderProcess">
+    <wsdl:port binding="tns:OrderProcessSOAP" name="OrderProcessSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sy:switchyard xmlns="urn:switchyard-config:switchyard:2.0"
+               xmlns:calculatorProcess="http://das.ufsc.br"
+               xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+               xmlns:soap="urn:switchyard-component-soap:config:2.0"
+               xmlns:sy="urn:switchyard-config:switchyard:2.0"
+               name="Add_Multiply_ChoiceBPEL"
+               targetNamespace="http://das.ufsc.br">
+   <sca:composite name="Add_Multiply_ChoiceBPEL" targetNamespace="http://das.ufsc.br">
+      <sca:service name="CalculatorProcess" promote="CalculatorProcess/CalculatorProcess">
+         <sca:interface.wsdl interface="CalculatorProcess.wsdl#wsdl.porttype(CalculatorProcess)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>CalculatorProcess.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:service>
+      <sca:reference multiplicity="0..1" name="SumService" promote="CalculatorProcess/SumService">
+         <sca:interface.wsdl interface="SumService.wsdl#wsdl.porttype(SumService)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>SumService.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:reference>
+      <sca:reference multiplicity="0..1" name="ProductService"
+                     promote="CalculatorProcess/ProductService">
+         <sca:interface.wsdl interface="ProductService.wsdl#wsdl.porttype(ProductService)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>ProductService.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:reference>
+      <sca:component name="CalculatorProcess">
+         <sca:implementation.bpel process="calculatorProcess:CalculatorProcess"/>
+         <sca:service name="CalculatorProcess">
+            <sca:interface.wsdl interface="CalculatorProcess.wsdl#wsdl.porttype(CalculatorProcess)"/>
+         </sca:service>
+         <sca:reference name="SumService">
+            <sca:interface.wsdl interface="SumService.wsdl#wsdl.porttype(SumService)"/>
+         </sca:reference>
+         <sca:reference name="ProductService">
+            <sca:interface.wsdl interface="ProductService.wsdl#wsdl.porttype(ProductService)"/>
+         </sca:reference>
+      </sca:component>
+   </sca:composite>
+</sy:switchyard>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpel:process exitOnStandardFault="yes" name="CEP_Process"
+    targetNamespace="http://das.ufsc.br"
+    xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:ns="http://das.ufsc.br" 
+    xmlns:ns0="http://das.ufsc.br/CEP_Process/" 
+    xmlns:ns1="http://das.ufsc.brArtifacts" 
+    xmlns:ns2="http://interfaces.cep.services.ufsc.br/">
+    <bpel:import namespace="http://das.ufsc.brArtifacts" location="CEP_ProcessArtifacts.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <bpel:import namespace="http://interfaces.cep.services.ufsc.br/" location="CEPService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <bpel:import importType="http://schemas.xmlsoap.org/wsdl/"
+        location="CEP_Process.wsdl" namespace="http://das.ufsc.br/CEP_Process/"/>
+    <bpel:import importType="http://schemas.xmlsoap.org/wsdl/"
+        location="CEP_ProcessPartners.wsdl" namespace="http://das.ufsc.br"/>
+    <bpel:partnerLinks>
+        <bpel:partnerLink myRole="CEP_ProcessRole" name="CEP_Process" partnerLinkType="ns:CEP_ProcessPLT"/>
+        <bpel:partnerLink name="CEP_Service" partnerLinkType="ns1:CEP_ServicePLT" partnerRole="CEP_ServiceRole"></bpel:partnerLink>
+    </bpel:partnerLinks>
+    <bpel:variables>
+        <bpel:variable name="requestProcess" messageType="ns0:findCEPRequest"></bpel:variable>
+        <bpel:variable name="responseProcess" messageType="ns0:findCEPResponse"></bpel:variable>
+        <bpel:variable name="requestCEPService" messageType="ns2:getCepInfo"></bpel:variable>
+        <bpel:variable name="responseCEPService" messageType="ns2:getCepInfoResponse"></bpel:variable>
+    </bpel:variables>
+    <bpel:sequence name="MainSequence">
+        
+        <bpel:receive name="Receive process request" partnerLink="CEP_Process" operation="findCEP" portType="ns0:CEP_Process" variable="requestProcess" createInstance="yes"></bpel:receive>
+        
+        <bpel:assign validate="no" name="Assign">
+            <bpel:copy>
+                <bpel:from>
+                	<bpel:literal xml:space="preserve">
+                		<int:getCepInfo xmlns:int="http://interfaces.cep.services.ufsc.br/">
+							<cep></cep>
+						</int:getCepInfo>
+					</bpel:literal>
+				</bpel:from>
+                <bpel:to part="parameters" variable="requestCEPService"></bpel:to>
+            </bpel:copy>
+            <bpel:copy ignoreMissingFromData="no" keepSrcElementName="no">
+                <bpel:from part="parameters" variable="requestProcess">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[cep]]>
+                    </bpel:query>
+                </bpel:from>
+                <bpel:to part="parameters" variable="requestCEPService">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[cep]]>
+                    </bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            
+            
+        </bpel:assign>
+        <bpel:invoke name="Invoke External CEP Service" partnerLink="CEP_Service" operation="getCepInfo" portType="ns2:CEPService" inputVariable="requestCEPService" outputVariable="responseCEPService"></bpel:invoke>
+        
+        <bpel:assign validate="no" name="Assign Service response to BPEL response">
+            <bpel:copy>
+                <bpel:from><bpel:literal><tnsProc:findCEPResponse xmlns:tnsProc="http://das.ufsc.br/CEP_Process/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CEPInfoResponse>
+    <cep>cep</cep>
+    <streetName>streetName</streetName>
+    <neighborhood>neighborhood</neighborhood>
+  </CEPInfoResponse>
+</tnsProc:findCEPResponse>
+</bpel:literal></bpel:from>
+                <bpel:to variable="responseProcess" part="parameters"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="parameters" variable="responseCEPService">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[cepInfo/cep]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="parameters" variable="responseProcess">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[CEPInfoResponse/cep]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="parameters" variable="responseCEPService">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[cepInfo/logradouro]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="parameters" variable="responseProcess">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[CEPInfoResponse/streetName]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="parameters" variable="responseCEPService">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[cepInfo/bairro]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="parameters" variable="responseProcess">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[CEPInfoResponse/neighborhood]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:reply name="BPEL Process Response" partnerLink="CEP_Process" operation="findCEP" portType="ns0:CEP_Process" variable="responseProcess"></bpel:reply>
+    </bpel:sequence>
+</bpel:process>

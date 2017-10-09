@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sy:switchyard xmlns="urn:switchyard-config:switchyard:2.0"
+               xmlns:helloWorld="http://helloworld.switchyard.com"
+               xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+               xmlns:soap="urn:switchyard-component-soap:config:2.0"
+               xmlns:sy="urn:switchyard-config:switchyard:2.0"
+               name="HelloWorld"
+               targetNamespace="http://helloworld.switchyard.com">
+   <sca:composite name="HelloWorld" targetNamespace="http://helloworld.switchyard.com">
+      <sca:service name="HelloWorld" promote="HelloWorld/HelloWorld">
+         <sca:interface.wsdl interface="HelloWorld.wsdl#wsdl.porttype(HelloWorld)"/>
+         <soap:binding.soap name="soap1">
+            <soap:contextMapper soapHeadersType="VALUE"/>
+            <soap:wsdl>HelloWorld.wsdl</soap:wsdl>
+         </soap:binding.soap>
+      </sca:service>
+      <sca:component name="HelloWorld">
+         <sca:implementation.bpel process="helloWorld:HelloWorld"/>
+         <sca:service name="HelloWorld">
+            <sca:interface.wsdl interface="HelloWorld.wsdl#wsdl.porttype(HelloWorld)"/>
+         </sca:service>
+      </sca:component>
+   </sca:composite>
+</sy:switchyard>

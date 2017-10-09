@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpel:process exitOnStandardFault="yes" name="OrderProcess"
+    targetNamespace="http://das.ufsc.br"
+    xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:ns="http://das.ufsc.br" xmlns:ns0="http://das.ufsc.br/OrderProcess/" xmlns:ns1="http://das.ufsc.brArtifacts" xmlns:ns2="http://interfaces.cep.services.ufsc.br/" xmlns:ns3="http://www.w3.org/2001/XMLSchema">
+    <bpel:import namespace="http://das.ufsc.brArtifacts" location="OrderProcessArtifacts.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <bpel:import namespace="http://interfaces.cep.services.ufsc.br/" location="CEPService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <bpel:import importType="http://schemas.xmlsoap.org/wsdl/"
+        location="OrderProcess.wsdl" namespace="http://das.ufsc.br/OrderProcess/"/>
+    <bpel:import importType="http://schemas.xmlsoap.org/wsdl/"
+        location="OrderProcessPartners.wsdl" namespace="http://das.ufsc.br"/>
+    <bpel:partnerLinks>
+        <bpel:partnerLink myRole="OrderProcessRole" name="OrderProcess" partnerLinkType="ns:OrderProcessPLT"/>
+        <bpel:partnerLink name="CEP_Service" partnerLinkType="ns1:CEP_ServicePLT" partnerRole="CEP_ServiceRole"></bpel:partnerLink>
+    </bpel:partnerLinks>
+    <bpel:variables>
+        <bpel:variable name="processRequest" messageType="ns0:acceptOrderRequest"></bpel:variable>
+        <bpel:variable name="processResponse" messageType="ns0:acceptOrderResponse"></bpel:variable>
+        <bpel:variable name="CEP_SvcRequest" messageType="ns2:getCepInfo"></bpel:variable>
+        <bpel:variable name="CEP_SvcResponse" messageType="ns2:getCepInfoResponse"></bpel:variable>
+        <bpel:variable name="orderTotal" type="ns3:float"></bpel:variable>
+        <bpel:variable name="CEP_error" messageType="ns0:acceptOrderFault"></bpel:variable>
+    </bpel:variables>
+    <bpel:sequence name="MainSequence">
+        
+        <bpel:receive name="Receive request" partnerLink="OrderProcess" operation="acceptOrder" portType="ns0:OrderProcess" variable="processRequest" createInstance="yes"></bpel:receive>
+        
+        <bpel:flow name="Flow"><bpel:sequence name="Invoke CEP Service">
+                <bpel:assign validate="no" name="Create CEP service request">
+                    
+                    
+                    <bpel:copy><bpel:from>
+                            <bpel:literal xml:space="preserve"><int:getCepInfo xmlns:int="http://interfaces.cep.services.ufsc.br/">
+	<cep></cep>
+</int:getCepInfo></bpel:literal>
+                        </bpel:from>
+                        <bpel:to part="parameters" variable="CEP_SvcRequest"></bpel:to>
+                    
+                    </bpel:copy>
+                    <bpel:copy><bpel:from part="parameters" variable="processRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[order/cep]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="parameters" variable="CEP_SvcRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[cep]]></bpel:query>
+                        </bpel:to>
+                    
+                    </bpel:copy>
+                </bpel:assign>
+                
+                <bpel:sources>
+                    <bpel:source linkName="link1"></bpel:source>
+                </bpel:sources>
+                <bpel:invoke name="Invoke CEP Service" partnerLink="CEP_Service" operation="getCepInfo" portType="ns2:CEPService" inputVariable="CEP_SvcRequest" outputVariable="CEP_SvcResponse">
+                    
+                </bpel:invoke>
+            </bpel:sequence><bpel:sequence name="Compute Order Total">
+                
+                
+                <bpel:assign validate="no" name="Simulating total order value">
+                    <bpel:copy>
+                        <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <![CDATA[$processRequest.parameters/order/quantity * 1200]]>
+                        </bpel:from>
+                        <bpel:to variable="orderTotal"></bpel:to>
+                    </bpel:copy>
+                </bpel:assign>
+                <bpel:assign validate="" name="Create process response"><bpel:copy>
+                        <bpel:from><bpel:literal><tns:acceptOrderResponse xmlns:tns="http://das.ufsc.br/OrderProcess/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <orderConfirmation>
+    <OrderId>0</OrderId>
+    <clientName>clientName</clientName>
+    <clientAddress>clientAddress</clientAddress>
+    <clientCity>clientCity</clientCity>
+    <clientState>clientState</clientState>
+    <quantity>0</quantity>
+    <total>0.0</total>
+  </orderConfirmation>
+</tns:acceptOrderResponse>
+</bpel:literal></bpel:from>
+                        <bpel:to variable="processResponse" part="parameters"></bpel:to>
+                    </bpel:copy>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <bpel:copy>
+                        <bpel:from part="parameters" variable="processRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                                <![CDATA[order/clientName]]>
+                            </bpel:query>
+                        
+                        </bpel:from>
+                        <bpel:to part="parameters" variable="processResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[orderConfirmation/clientName]]></bpel:query>
+                        </bpel:to>
+                    
+                    
+                    
+                    </bpel:copy>
+                    <bpel:copy><bpel:from part="parameters" variable="CEP_SvcResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[cepInfo/logradouro]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="parameters" variable="processResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[orderConfirmation/clientAddress]]></bpel:query>
+                        </bpel:to>
+                    
+                    </bpel:copy>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <bpel:copy><bpel:from part="parameters" variable="CEP_SvcResponse"><bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[cepInfo/localidade]]></bpel:query>
+                        
+                        </bpel:from><bpel:to part="parameters" variable="processResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[orderConfirmation/clientCity]]></bpel:query>
+                        </bpel:to>
+                    
+                    
+                    
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="parameters" variable="CEP_SvcResponse"><bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[cepInfo/uf]]></bpel:query>
+                        
+                        </bpel:from><bpel:to part="parameters" variable="processResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[orderConfirmation/clientState]]></bpel:query>
+                        </bpel:to>
+                    
+                    
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="parameters" variable="processRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                                <![CDATA[order/quantity]]>
+                            </bpel:query>
+                        
+                        </bpel:from><bpel:to part="parameters" variable="processResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                                <![CDATA[orderConfirmation/quantity]]>
+                            </bpel:query>
+                        </bpel:to>
+                    
+                    
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from variable="orderTotal"></bpel:from><bpel:to part="parameters" variable="processResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[orderConfirmation/total]]></bpel:query>
+                        </bpel:to>
+                    
+                    
+                    </bpel:copy>
+                    
+                
+                    
+                    <bpel:targets>
+                        <bpel:target linkName="link1"></bpel:target>
+                    </bpel:targets>
+                </bpel:assign>
+                
+                
+            </bpel:sequence><bpel:links>
+                <bpel:link name="link1"></bpel:link>
+            </bpel:links></bpel:flow>
+        
+        
+        
+        <bpel:reply name="Reply" partnerLink="OrderProcess" operation="acceptOrder" portType="ns0:OrderProcess" variable="processResponse"></bpel:reply>
+    </bpel:sequence>
+</bpel:process>
