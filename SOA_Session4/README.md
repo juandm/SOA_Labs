@@ -43,7 +43,12 @@ Create table script for **`BrRobotics`** DB.
         TOTAL                REAL          NOT NULL
     );
      ```
- 
+ - After create the data bases, in both projects modify the **url connection** (_line 25_) in the file  `DAOPedido.java`.
+
+    ```java
+    String url = "jdbc:sqlite:C:/YOUR/PATH/TO/DBs/BrRobotics.db";
+    ```
+    
  - Requests for test the WS
     
     **BrRobotics**
@@ -85,7 +90,7 @@ Create table script for **`BrRobotics`** DB.
        </soapenv:Body>
     </soapenv:Envelope>
     ```
-   
+ 
 ### 2.  Wrapper for legacy app
 
 This example shows how to expose a legacy app (_using propietary protocols and data format_) as a SOAP web service, the approach used to build the service is **bottom/up**.
