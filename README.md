@@ -64,5 +64,5 @@ Use the `.jar` located in the folder _**"2.EAP 6.04"**_ downloaded in the first 
 #### 6. Testing installation and downloading SwitchYard Maven dependencies
 Create a new SwitchYard project call it test_project and click on finish button, let the environment download all the maven dependencies, after that save all and close the dev Studio.
 
-[here] 
+[here]: <https://drive.google.com/open?id=0B4PAsBMomKsjYUJIWjVaQVF5cEk>
 
