@@ -10,7 +10,7 @@ This document contains the information related to the exercises of session #2 of
 ___
 
 ### 1. Setup service registry jUDDI
-**(The tutorial below is for information purposes, in the lab please USE the provided UDDI folder).**
+**(The tutorial below is for information purposes, in the lab please USE the [provided UDDI] folder).**
 Follow the tutorial in ([jUDDI-Setup]) for setup and run the service registry.
 
 ___
@@ -286,3 +286,4 @@ To run this example is necessary to deploy the two web service projects that are
    [jUDDI]: <https://juddi.apache.org/>
    [jUDDI-Setup]:<https://gist.github.com/juandm/d9fae604368a3a9fcb549fd8db4294ba>
    [jUDDI-RegisterService]:<https://gist.github.com/juandm/d9fae604368a3a9fcb549fd8db4294ba>
+   [provided UDDI]: <https://drive.google.com/open?id=0B4PAsBMomKsjYUJIWjVaQVF5cEk>
