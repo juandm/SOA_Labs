@@ -36,11 +36,10 @@ Use the `.jar` located in the folder _**"3. Fuse Runtime"**_ downloaded in the f
     ```
 	When asked in the highlighted line press ENTER and wait to finish the process.
 
-![fuse install](https://raw.githubusercontent.com/juandm/SOA_Labs/master/imgs/3_Install_FuseEAP_Runtime.PNG)
-![fuse install cmd](/imgs/3_Install_FuseEAP_Runtime.PNG)
+	![fuse install cmd](/imgs/3_Install_FuseEAP_Runtime.PNG)
     
 #### 3. JBoss Developer Studio
-- Run the installer
+- Run the installer located in the folder _**"(4.JBossDevStudio)"**_
     - For Mac / Windows Development Hosts:
         - Double-click on the jar to start the installer (on Windows).
     - For Linux Development Hosts
@@ -48,14 +47,13 @@ Use the `.jar` located in the folder _**"3. Fuse Runtime"**_ downloaded in the f
             ```java
             java -jar devstudio-11.0.0.GA-installer-standalone.jar
             ```
-		- When asked to set the JDK, go to the folder where JDK was installed in step 1.
-		
         - Select Additional Features to Install page, be sure to select JBoss Fuse. Tooling
 
 - During installation:
     - Accept the terms and conditions.
     - Choose your preferred installation path.
     - Select the Java 8 JVM installed in 2dn step.
+		![jdk path](/imgs/1_JDK_Path_.PNG)
     - At the **Select Platforms and Servers** step, **configure the runtime server by clicking Add and browsing to the location of the **(EAP_Install_Path)** directory** _(last step)_.
 - Select JBoss Fuse Development as additional features.
 - The developer environment will start up. When the Searching for runtimes dialog appears, click OK to create the JBoss EAP runtime.
@@ -67,9 +65,10 @@ Use the `.jar` located in the folder _**"3. Fuse Runtime"**_ downloaded in the f
 - In _**"Work With"**_ choose the Core Repository **(Red Hat Developer Studio - Core)**
 - In the displayed list, select **"JBoss Integration and SOA Development"** and click _Finish_.
 - Accept terms in warnings and finish the installtion process.
+	![soa tools](/imgs/2_Install_SOA_Suite.PNG)
+
 
 #### 6. Testing installation and downloading SwitchYard Maven dependencies
 Create a new SwitchYard project call it test_project and click on finish button, let the environment download all the maven dependencies, after that save all and close the dev Studio.
 
 [here]: <https://drive.google.com/open?id=0B4PAsBMomKsjYUJIWjVaQVF5cEk>
-[cmd_fuse]:https://raw.githubusercontent.com/juandm/SOA_Labs/master/imgs/3_Install_FuseEAP_Runtime.PNG
