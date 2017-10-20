@@ -2,8 +2,10 @@
 
 ## Tools for SOA lessons 
 
-#### 1. Download all necessary tools here 
-- Install the tools in the order stated below. link for download [here]. 
+#### 1. Download all necessary tools
+- Install the tools in the order stated below. link for download [here].
+- **SQLite Studio:** https://sqlitestudio.pl/index.rvt?act=download
+- **SOAP UI:** https://www.soapui.org/downloads/latest-release.html 
 
 #### 2. Download and install the **Java development kit (jdk)**.
 * If the OS is a 64 bits Windows install the JDK using the `.jar` available in the downloaded folder _**"1. JDK"**_ in the first step.
@@ -38,7 +40,7 @@ Use the `.jar` located in the folder _**"3. Fuse Runtime"**_ downloaded in the f
 
 	![fuse install cmd](/imgs/3_Install_FuseEAP_Runtime.PNG)
     
-#### 3. JBoss Developer Studio
+#### 5. JBoss Developer Studio
 - Run the installer located in the folder _**"(4.JBossDevStudio)"**_
     - For Mac / Windows Development Hosts:
         - Double-click on the jar to start the installer (on Windows).
@@ -59,16 +61,15 @@ Use the `.jar` located in the folder _**"3. Fuse Runtime"**_ downloaded in the f
 - The developer environment will start up. When the Searching for runtimes dialog appears, click OK to create the JBoss EAP runtime.
 - Accept any additional dependencies and license agreements.
 
-#### 5. JBoss Integration Stack on Jboss Dev Studio
+#### 6. JBoss Integration Stack on Jboss Dev Studio
 
 - In JBoss Dev Studio go to _**"Help >> Install New Software"**_.
 - In _**"Work With"**_ choose the Core Repository **(Red Hat Developer Studio - Core)**
 - In the displayed list, select **"JBoss Integration and SOA Development"** and click _Finish_.
 - Accept terms in warnings and finish the installtion process.
 	![soa tools](/imgs/2_Install_SOA_Suite.PNG)
-
-
-#### 6. Testing installation and downloading SwitchYard Maven dependencies
+	
+#### 7. Testing installation and downloading SwitchYard Maven dependencies
 Create a new SwitchYard project call it _**test_project**_ and click on finish button, let the environment download all the maven dependencies, after that save all and close the dev Studio.
 
 [here]: <https://drive.google.com/open?id=0B4PAsBMomKsjYUJIWjVaQVF5cEk>
