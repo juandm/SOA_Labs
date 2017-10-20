@@ -6,7 +6,7 @@
 - Install the tools in the order stated below. link for download [here]. 
 
 #### 2. Download and install the **Java development kit (jdk)**.
-* If the OS is a 64 bits Windows install the JDK using the `.jar` available in the downloaded folder in the first step.
+* If the OS is a 64 bits Windows install the JDK using the `.jar` available in the downloaded folder _**"1. JDK"**_ in the first step.
 
     If you are using other OS, download the JDK here:
     http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
@@ -27,15 +27,19 @@ During installation:
 - You can accept the default settings on the remaining screens.
  
 #### 4. Fuse on EAP runtime
-Use the `.jar` located in the folder _**"2.EAP 6.04"**_ downloaded in the first step to install the _**Fuse on EAP runtime**_ package.
+Use the `.jar` located in the folder _**"3. Fuse Runtime"**_ downloaded in the first step to install the _**Fuse on EAP runtime**_ package.
 
 - Open a command prompt and change directory to **(EAP_Install_Path)** used in the last step.
 - From the **(EAP_Install_Path)** directory, run the **_Fuse on EAP installer_**, as follows:
     ```java
     java -jar <TEMP_LOCATION>/fuse-eap-installer-6.3.0.redhat-187.jar
     ```
+	When asked in the highlighted line press ENTER and wait to finish the process.
+	
+![fuse runtime install cmd]:[cmd_fuse] 
+    
 #### 3. JBoss Developer Studio
-- Run the installer in the folder ()
+- Run the installer
     - For Mac / Windows Development Hosts:
         - Double-click on the jar to start the installer (on Windows).
     - For Linux Development Hosts
@@ -43,6 +47,8 @@ Use the `.jar` located in the folder _**"2.EAP 6.04"**_ downloaded in the first 
             ```java
             java -jar devstudio-11.0.0.GA-installer-standalone.jar
             ```
+		- When asked to set the JDK, go to the folder where JDK was installed in step 1.
+		
         - Select Additional Features to Install page, be sure to select JBoss Fuse. Tooling
 
 - During installation:
@@ -65,4 +71,4 @@ Use the `.jar` located in the folder _**"2.EAP 6.04"**_ downloaded in the first 
 Create a new SwitchYard project call it test_project and click on finish button, let the environment download all the maven dependencies, after that save all and close the dev Studio.
 
 [here]: <https://drive.google.com/open?id=0B4PAsBMomKsjYUJIWjVaQVF5cEk>
-
+[cmd_fuse]:https://raw.githubusercontent.com/juandm/SOA_Labs/master/imgs/3_Install_FuseEAP_Runtime.PNG
