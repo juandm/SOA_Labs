@@ -36,8 +36,8 @@ Use the `.jar` located in the folder _**"3. Fuse Runtime"**_ downloaded in the f
     ```
 	When asked in the highlighted line press ENTER and wait to finish the process.
 
-![fuse install]
-(https://raw.githubusercontent.com/juandm/SOA_Labs/master/imgs/3_Install_FuseEAP_Runtime.PNG)
+![fuse install](https://raw.githubusercontent.com/juandm/SOA_Labs/master/imgs/3_Install_FuseEAP_Runtime.PNG)
+![fuse install cmd](/imgs/3_Install_FuseEAP_Runtime.PNG)
     
 #### 3. JBoss Developer Studio
 - Run the installer
