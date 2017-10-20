@@ -16,7 +16,7 @@
 To install the _**JBoss EAP runtime**_ package, use the `.jar` located in the folder _**"2.EAP 6.04"**_ downloaded in the first step.
 
 Run the JBoss EAP installer double clicking on the file or executing the following command in the console:
-```bash
+```sh
 java -jar jboss-eap-6.4.0-installer.jar
 ```
 During installation:
@@ -31,7 +31,7 @@ Use the `.jar` located in the folder _**"3. Fuse Runtime"**_ downloaded in the f
 
 - Open a command prompt and change directory to **(EAP_Install_Path)** used in the last step.
 - From the **(EAP_Install_Path)** directory, run the **_Fuse on EAP installer_**, as follows:
-    ```java
+    ```sh
     java -jar <TEMP_LOCATION>/fuse-eap-installer-6.3.0.redhat-187.jar
     ```
 	When asked in the highlighted line press ENTER and wait to finish the process.
@@ -44,7 +44,7 @@ Use the `.jar` located in the folder _**"3. Fuse Runtime"**_ downloaded in the f
         - Double-click on the jar to start the installer (on Windows).
     - For Linux Development Hosts
         - Go to the folder where you have downloaded the installer and execute it. with
-            ```java
+            ```sh
             java -jar devstudio-11.0.0.GA-installer-standalone.jar
             ```
         - Select Additional Features to Install page, be sure to select JBoss Fuse. Tooling
@@ -69,6 +69,6 @@ Use the `.jar` located in the folder _**"3. Fuse Runtime"**_ downloaded in the f
 
 
 #### 6. Testing installation and downloading SwitchYard Maven dependencies
-Create a new SwitchYard project call it test_project and click on finish button, let the environment download all the maven dependencies, after that save all and close the dev Studio.
+Create a new SwitchYard project call it _**test_project**_ and click on finish button, let the environment download all the maven dependencies, after that save all and close the dev Studio.
 
 [here]: <https://drive.google.com/open?id=0B4PAsBMomKsjYUJIWjVaQVF5cEk>
