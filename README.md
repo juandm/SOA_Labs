@@ -35,8 +35,9 @@ Use the `.jar` located in the folder _**"3. Fuse Runtime"**_ downloaded in the f
     java -jar <TEMP_LOCATION>/fuse-eap-installer-6.3.0.redhat-187.jar
     ```
 	When asked in the highlighted line press ENTER and wait to finish the process.
-	
-![fuse runtime install cmd]:[cmd_fuse] 
+
+![fuse install]
+(https://raw.githubusercontent.com/juandm/SOA_Labs/master/imgs/3_Install_FuseEAP_Runtime.PNG)
     
 #### 3. JBoss Developer Studio
 - Run the installer
