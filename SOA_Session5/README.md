@@ -117,5 +117,8 @@ This session shows how to create a web portal to invoke the bpel process created
     		
     	}
         ```
+		
+### IMPORTANT NOTE
+If you are importing this project you should change the **PATH of OrderProcess WSDL** in the file `OrderProcess_Service` to match your path in **lines 18, 29, 33**
 
 [Session 3, project 2]: <https://github.com/juandm/SOA_Labs/tree/master/SOA_Session3/Order_Simulation_BPEL>
